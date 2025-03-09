@@ -1,0 +1,46 @@
+# Ignore compiled Python files
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.pyo
+*.pyd
+*.pyc
+
+# Ignore environment files
+.env
+.env.example
+.vscode/
+.idea/
+*.swp
+
+# Ignore virtual environment
+venv/
+.venv/
+pip-wheel-metadata/
+
+# Ignore database files (SQLite)
+instance/
+*.db
+*.sqlite3
+
+# Ignore Flask migrations
+migrations/
+alembic/
+
+# Ignore logs and temporary files
+logs/
+*.log
+nohup.out
+tmp/
+debug.log
+
+# Ignore IDE and OS-generated files
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# Ignore Python dependency cache
+pip-log.txt
+pip-delete-this-directory.txt

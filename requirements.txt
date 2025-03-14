@@ -3,10 +3,13 @@ flask-restful
 flask-jwt-extended
 flask-sqlalchemy
 flask-migrate
+flask-cors
 
 marshmallow
 marshmallow-sqlalchemy
 
-flask-cors
 redis
 gunicorn
+werkzeug
+
+python-dotenv

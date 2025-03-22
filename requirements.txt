@@ -11,5 +11,6 @@ marshmallow-sqlalchemy
 redis
 gunicorn
 werkzeug
+pytz
 
 python-dotenv

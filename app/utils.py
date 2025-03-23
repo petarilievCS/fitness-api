@@ -49,8 +49,10 @@ def validate_password(password):
 def calculate_calories(workout_type, weight, duration):
     MET = WORKOUT_MET_VALUES[workout_type]
     duration_in_hours = duration / 60
+    print(f"MET: {MET}")
+    print(f"Weight: {weight}")
+    print(f"Duration: {duration}")
     return MET * weight * duration_in_hours
 
 def get_utc_timestamp(timestamp):
-    utc_time = timestamp.astimezone(pytz.utc)
-    utc_timestamp = utc_time.strftime("%Y-%m-%dT%H:%M:%SZ")
+    return timestamp.astimezone(pytz.utc)

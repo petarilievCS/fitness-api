@@ -20,7 +20,7 @@ class Workout(db.Model):
     duration = db.Column(db.Integer, nullable=False) # in minutes
     type = db.Column(db.String(50), nullable=False)
     calories = db.Column(db.Integer, nullable=False)
-    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp()) # in UTC
 
     user = db.relationship("User", backref="workouts")
 

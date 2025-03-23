@@ -14,7 +14,7 @@ class WorkoutSchema(Schema):
     id = fields.Integer(dump_only=True)
     user_id = fields.Integer(dump_only=True, required=True)
     duration = fields.Integer(required=True)
-    type = fields.String(required=True, validate=validate.Length(min=5, max=50))
+    type = fields.String(required=True)
     calories = fields.Integer(required=True, dump_only=True)
     timestamp = fields.DateTime(required=False)
     

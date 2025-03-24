@@ -88,3 +88,40 @@ def get_history():
         return jsonify(workout_schema.dump(workouts, many=True)), 200
     except Exception as e:
         return jsonify({"server serror": str(e)}), 500
+    
+@workout_bp.route("/<int:workout_id>", methods=["GET"])
+@jwt_required()
+def get_workout(workout_id):
+    try:
+        user_id = int(get_jwt_identity())
+        workout = Workout.query.get(workout_id)
+
+        if not workout:
+            return jsonify({"error": "Workout not found."}), 404
+
+        if workout.user_id != user_id:
+            return jsonify({"error": "You are not authorized to access this workout."}), 403
+
+        return jsonify(workout_schema.dump(workout)), 200
+    except Exception as e:
+        return jsonify({"server serror": str(e)}), 500
+    
+@workout_bp.route("/<int:workout_id>", methods=["DELETE"])
+@jwt_required()
+def delete_workout(workout_id):
+    try:
+        user_id = int(get_jwt_identity())
+        workout = Workout.query.get(workout_id)
+
+        if not workout:
+            return jsonify({"error": "Workout not found."}), 404
+
+        if workout.user_id != user_id:
+            return jsonify({"error": "You are not authorized to delete this workout."}), 403
+
+        db.session.delete(workout)
+        db.session.commit()
+
+        return jsonify({"message": f"Workout {workout_id} deleted"}), 200
+    except Exception as e:
+        return jsonify({"server serror": str(e)}), 500

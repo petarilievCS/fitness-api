@@ -36,4 +36,11 @@ class Meal(db.Model):
 
     user = db.relationship("User", backref="meals")
 
+class WeightLog(db.Model)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+    weight = db.Column(db.Float, nullable=False) # in kg
+
+    user = db.relationship("User", backref="weight_logs")
 

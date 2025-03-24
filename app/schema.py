@@ -17,6 +17,17 @@ class WorkoutSchema(Schema):
     type = fields.String(required=True)
     calories = fields.Integer(required=True, dump_only=True)
     timestamp = fields.DateTime(required=False)
+
+class MealSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    user_id = fields.Integer(dump_only=True)
+    name = fields.String(required=True, validate=validate.Length(min=1, max=50))
+    calories = fields.Integer(required=True, validate=validate.Range(min=0))
+    protein = fields.Integer(required=True, validate=validate.Range(min=0))
+    carbohydrates = fields.Integer(required=True, validate=validate.Range(min=0))
+    fats = fields.Integer(required=True, validate=validate.Range(min=0))
+    timestamp = fields.DateTime(required=False)
     
 user_schema = UserSchema()
 workout_schema = WorkoutSchema()
+meal_schema = MealSchema()

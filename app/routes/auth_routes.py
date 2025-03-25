@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
 from app.schema import user_schema
-from app.models import User
+from app.models import User, WeightLog
 from app.utils import validate_password
 
 auth_bp = Blueprint("auth", __name__)
@@ -35,6 +35,9 @@ def signup():
             height=user_data["height"],
             goal=user_data["goal"]
         )
+
+        weight_log = WeightLog(user_id=id, weight=data["weight"])
+        db.session.add(weight_log)
         
         db.session.add(user)
         db.session.commit()
@@ -106,6 +109,12 @@ def update_user():
         # Update fields
         if "weight" in data:
             user.weight = data['weight']
+            weight_log = WeightLog(
+                user_id=id,
+                weight=data["weight"]
+            )
+            db.session.add(weight_log)
+
         if "height" in data:
             user.height = data["height"]
         if "goal" in data:

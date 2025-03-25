@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from datetime import datetime, timedelta, timezone
 
 from app import db
-from app.models import Workout, Meal
+from app.models import Workout, Meal, WeightLog
 
 analytics_bp = Blueprint("analytics", __name__)
 
@@ -85,5 +85,22 @@ def get_meal_analytics():
             result[date]["fats"] += meal.fats
 
         return jsonify(result), 200    
+    except Exception as e:
+        return jsonify({"server serror": str(e)}), 500
+    
+@analytics_bp.route("/progress", methods=["GET"])
+@jwt_required()
+def get_progress():
+    try:
+        user_id = get_jwt_identity()
+        weight_logs = WeightLog.query.filter_by(user_id=user_id).order_by(WeightLog.timestamp.desc()).all()
+
+        result = {}
+        for log in weight_logs:
+            date = str(log.timestamp.date())
+            if date not in result:
+                result[date] = log.weight
+
+        return jsonify(result), 200
     except Exception as e:
         return jsonify({"server serror": str(e)}), 500
